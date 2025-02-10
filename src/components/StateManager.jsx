@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import {
   StateControlWrapper,
@@ -6,9 +6,11 @@ import {
   StyledButton,
   ButtonGroup,
 } from "../styles/StyledComponents";
+import { MessageProvider } from "../context/messageContext";
 
-function StateControl({ onMessageChange }) {
+function StateControl() {
   const [inputValue, setInputValue] = useState("");
+  const { setMessage: onMessageChange } = useContext(MessageProvider);
 
   const handleSubmit = (e) => {
     e.preventDefault();
