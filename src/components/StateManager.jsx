@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   StateControlWrapper,
@@ -6,21 +6,22 @@ import {
   StyledButton,
   ButtonGroup,
 } from "../styles/StyledComponents";
-import { MessageContext } from "../contexts/MessageContext";
+import { useDispatch } from "react-redux";
+import { clearMessage, setMessage } from "../redux/messageSlice";
 
 function StateControl() {
-  const { setMessage: onMessageChange } = useContext(MessageContext);
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onMessageChange(inputValue);
+    dispatch(setMessage(inputValue));
     setInputValue("");
   };
 
   const handleReset = () => {
     setInputValue("");
-    onMessageChange("");
+    dispatch(clearMessage());
   };
 
   return (
