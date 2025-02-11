@@ -1,24 +1,27 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import {
   StateControlWrapper,
   StyledInput,
   StyledButton,
   ButtonGroup,
 } from "../styles/StyledComponents";
+import { useDispatch } from "react-redux";
+import { clearMessage, setMessage } from "../redux/messageSlice";
 
-function StateControl({ onMessageChange }) {
+function StateControl() {
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onMessageChange(inputValue);
+    dispatch(setMessage(inputValue));
     setInputValue("");
   };
 
   const handleReset = () => {
     setInputValue("");
-    onMessageChange("");
+    dispatch(clearMessage());
   };
 
   return (
@@ -41,9 +44,5 @@ function StateControl({ onMessageChange }) {
     </StateControlWrapper>
   );
 }
-
-StateControl.propTypes = {
-  onMessageChange: PropTypes.func.isRequired,
-};
 
 export default StateControl;
