@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import {
   StateControlWrapper,
@@ -6,19 +6,21 @@ import {
   StyledButton,
   ButtonGroup,
 } from "../styles/StyledComponents";
+import { MessageContext } from "../contexts/MessageContext";
 
-function StateControl({ onMessageChange }) {
+function StateControl() {
   const [inputValue, setInputValue] = useState("");
+  const { setMessage } = useContext(MessageContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onMessageChange(inputValue);
+    setMessage(inputValue);
     setInputValue("");
   };
 
   const handleReset = () => {
     setInputValue("");
-    onMessageChange("");
+    setMessage("");
   };
 
   return (
@@ -42,8 +44,8 @@ function StateControl({ onMessageChange }) {
   );
 }
 
-StateControl.propTypes = {
-  onMessageChange: PropTypes.func.isRequired,
-};
+// StateControl.propTypes = {
+//   setMessage: PropTypes.func.isRequired,
+// };
 
 export default StateControl;
